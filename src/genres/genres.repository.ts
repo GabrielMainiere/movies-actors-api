@@ -7,12 +7,12 @@ import Genre from "./entities/genre.entity";
 @Injectable()
 export class GenreRepository{
 
-    async create(genre: GenreCreateDto): Promise<GenreDto> {
-        const created = await Genre.create({ ...genre });
+    async create(genreCreated: GenreCreateDto): Promise<GenreDto> {
+        const created = await Genre.create({ ...genreCreated });
         return GenreDto.fromEntity(created);
     }
 
-    async update(id: number, updateDto: UpdateGenreDto): Promise<GenreDto> {
+    async update(id: number, genreUpdated: UpdateGenreDto): Promise<GenreDto> {
         const genre = await Genre.findByPk(id);
 
         if (!genre) {
@@ -20,7 +20,7 @@ export class GenreRepository{
         }
 
         await genre.update({
-            name: updateDto.name
+            name: genreUpdated.name
         });
 
         return GenreDto.fromEntity(genre);

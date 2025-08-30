@@ -31,7 +31,7 @@ export class GenresService {
     const genre = await this.genreRepository.findOne(id);
 
     if (!genre) {
-      throw new NotFoundException("No genre with `${id}` found in database.");  
+      throw new NotFoundException(`No genre with id ${id} found in database.`);  
     }
 
     return await this.genreRepository.findOne(id)
@@ -41,7 +41,7 @@ export class GenresService {
     const genre = await this.genreRepository.findOne(id);
 
     if (!genre) {
-      throw new NotFoundException("No genre with `${id}` found in database.");  
+      throw new NotFoundException(`No genre with id ${id} found in database.`);  
     }
     return await this.genreRepository.update(id, updateGenreDto)
   }
@@ -50,7 +50,7 @@ export class GenresService {
     const genre = await this.genreRepository.findOne(id);
 
     if (!genre) {
-      throw new NotFoundException(`No genre with ${id} found in database.`);  
+      throw new NotFoundException(`No genre with id ${id} found in database.`);  
     }
 
     await this.genreRepository.remove(id);
