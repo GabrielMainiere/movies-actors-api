@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
+import { MoviesCreateDto } from './dto/create-movie.dto';
+import { MoviesUpdateDto } from './dto/update-movie.dto';
 
 @Injectable()
 export class MoviesService {
-  create(createMovieDto: CreateMovieDto) {
+  create(createMovieDto: MoviesCreateDto) {
     return 'This action adds a new movie';
   }
 
@@ -16,7 +16,7 @@ export class MoviesService {
     return `This action returns a #${id} movie`;
   }
 
-  update(id: number, updateMovieDto: UpdateMovieDto) {
+  update(id: number, updateMovieDto: MoviesUpdateDto) {
     return `This action updates a #${id} movie`;
   }
 
