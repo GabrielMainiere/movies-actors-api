@@ -3,14 +3,24 @@ import { MoviesDto } from "./dto/movie.dto";
 import Movies from "./entities/movie.entity";
 import Actor from "src/actors/entities/actor.entity";
 import { MoviesUpdateDto } from "./dto/update-movie.dto";
+import { MoviesCreateDto } from "./dto/create-movie.dto";
 
 @Injectable()
 export class MovieRepository{
 
-    async create(movieCreated): Promise<MoviesDto>{
-        const created = await Movies.create({ ...movieCreated });
+    async create(movieCreated : MoviesCreateDto): Promise<MoviesDto> {
+        const { actorsIds, ...movieData } = movieCreated;
+
+        const created = await Movies.create({ ...movieData });
+
+        if (actorsIds && actorsIds.length > 0) {
+            await created.$set("actors", actorsIds);
+            await created.reload({ include: [Actor] });
+        }
+
         return MoviesDto.fromEntity(created);
     }
+
 
     async update(id: number, movieUpdated: MoviesUpdateDto): Promise<MoviesDto | null> {
         const movie = await Movies.findByPk(id);
@@ -18,6 +28,7 @@ export class MovieRepository{
         if (!movie) {
             throw new NotFoundException("Movie not found"); 
         }
+
         await movie.update({
             name: movieUpdated.name,
             synopsis: movieUpdated.synopsis,
@@ -28,6 +39,7 @@ export class MovieRepository{
         if (movieUpdated.actorsIds) {
             await movie.$set('actors', movieUpdated.actorsIds); 
         }
+        await movie.reload({ include: [Actor] });
 
         return MoviesDto.fromEntity(movie);
     }

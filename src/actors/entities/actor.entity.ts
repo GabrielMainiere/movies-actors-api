@@ -17,7 +17,7 @@ export default class Actor extends Model {
   declare name: string;
 
   @Column(DataType.DATE)
-  declare birthDate: Date;
+  declare birthdate: Date;
 
   @BelongsToMany(() => Movies, () => ActorMovie)
   declare movies: Movies[];

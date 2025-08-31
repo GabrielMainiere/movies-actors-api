@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { ActorsService } from './actors.service';
 import { ActorCreateDto } from './dto/create-actor.dto';
 import { ActorUpdateDto } from './dto/update-actor.dto';
@@ -8,27 +8,27 @@ export class ActorsController {
   constructor(private readonly actorsService: ActorsService) {}
 
   @Post()
-  create(@Body() createActorDto: ActorCreateDto) {
-    return this.actorsService.create(createActorDto);
+  async create(@Body() createActorDto: ActorCreateDto) {
+    return await this.actorsService.create(createActorDto);
   }
 
   @Get()
-  findAll() {
-    return this.actorsService.findAll();
+  async findAll() {
+    return await this.actorsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.actorsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.actorsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateActorDto: ActorUpdateDto) {
-    return this.actorsService.update(+id, updateActorDto);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateActorDto: ActorUpdateDto) {
+    return await this.actorsService.update(+id, updateActorDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.actorsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.actorsService.remove(+id);
   }
 }

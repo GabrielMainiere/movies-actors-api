@@ -16,6 +16,6 @@ export class ActorDto {
 
     static fromEntity(actor: Actor): ActorDto {
         const moviesDtos = actor.movies ? actor.movies.map(MoviesDto.fromEntity) : [];
-        return new ActorDto(actor.id, actor.name, actor.birthDate, moviesDtos);
+        return new ActorDto(actor.id, actor.name, actor.birthdate, moviesDtos);
     }
 }
