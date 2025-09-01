@@ -27,11 +27,13 @@ export class GenreRepository{
     }
 
     async findAll(): Promise<GenreDto[]>{
-        return await Genre.findAll()
+        const genres = await Genre.findAll();
+        return genres.map(GenreDto.fromEntity);
     }
 
-    async findOne(id : number): Promise<GenreDto | null>{
-        return await Genre.findByPk(id);
+    async findOne(id: number): Promise<GenreDto | null> {
+        const genre = await Genre.findByPk(id);
+        return genre ? GenreDto.fromEntity(genre) : null;
     }
 
     async remove(id: number): Promise<void> {
